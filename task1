@@ -1,0 +1,86 @@
+using System;
+
+class Rectangle
+{
+    // Захищені поля
+    protected int a, b;
+    protected int c;
+
+    // Конструктор
+    public Rectangle(int a, int b, int color)
+    {
+        this.a = a;
+        this.b = b;
+        this.c = color;
+    }
+
+    // Властивості
+    public int A
+    {
+        get { return a; }
+        set { a = value; }
+    }
+
+    public int B
+    {
+        get { return b; }
+        set { b = value; }
+    }
+
+    public int Color
+    {
+        get { return c; }
+    }
+
+    // Методи
+    public void PrintInfo()
+    {
+        Console.WriteLine($"Прямокутник: a = {a}, b = {b}, колiр = {c}");
+    }
+
+    public int GetPerimeter()
+    {
+        return 2 * (a + b);
+    }
+
+    public int GetArea()
+    {
+        return a * b;
+    }
+
+    public bool IsSquare()
+    {
+        return a == b;
+    }
+}
+
+class Program2
+{
+    static void Main2()
+    {
+        Rectangle[] rectangles =
+        {
+            new Rectangle(5, 5, 1),
+            new Rectangle(4, 6, 2),
+            new Rectangle(7, 7, 3),
+            new Rectangle(8, 10, 4)
+        };
+
+        int squareCount = 0;
+
+        foreach (var rect in rectangles)
+        {
+            rect.PrintInfo();
+            Console.WriteLine($"Периметр: {rect.GetPerimeter()}");
+            Console.WriteLine($"Площа: {rect.GetArea()}");
+            if (rect.IsSquare())
+            {
+                Console.WriteLine("Це квадрат!");
+                squareCount++;
+            }
+            Console.WriteLine();
+        }
+
+        Console.WriteLine($"Кiлькiсть квадратiв: {squareCount}");
+    }
+}

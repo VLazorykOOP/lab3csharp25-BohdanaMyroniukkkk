@@ -1,0 +1,98 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+// Базовий клас "Держава"
+abstract class State
+{
+    public string Name { get; set; }
+    public int Population { get; set; }
+
+    protected State(string name, int population)
+    {
+        Name = name;
+        Population = population;
+    }
+
+    public abstract void Show();
+}
+
+// Похідний клас "Республіка"
+class Republic : State
+{
+    public string President { get; set; }
+
+    public Republic(string name, int population, string president)
+        : base(name, population)
+    {
+        President = president;
+    }
+
+    public override void Show()
+    {
+        Console.WriteLine($"Республiка: {Name}, Населення: {Population}, Президент: {President}");
+    }
+}
+
+// Похідний клас "Монархія"
+class Monarchy : State
+{
+    public string Monarch { get; set; }
+
+    public Monarchy(string name, int population, string monarch)
+        : base(name, population)
+    {
+        Monarch = monarch;
+    }
+
+    public override void Show()
+    {
+        Console.WriteLine($"Монархiя: {Name}, Населення: {Population}, Монарх: {Monarch}");
+    }
+}
+
+// Похідний клас "Королівство"
+class Kingdom : Monarchy
+{
+    public string Capital { get; set; }
+
+    public Kingdom(string name, int population, string monarch, string capital)
+        : base(name, population, monarch)
+    {
+        Capital = capital;
+    }
+
+    public override void Show()
+    {
+        Console.WriteLine($"Королiвство: {Name}, Населення: {Population}, Монарх: {Monarch}, Столиця: {Capital}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        List<State> states = new List<State>
+        {
+            new Republic("Україна", 40000000, "Володимир Зеленський"),
+            new Monarchy("Японiя", 125000000, "Iмператор Нарухiто"),
+            new Kingdom("Велика Британiя", 67000000, "Король Чарльз III", "Лондон"),
+            new Republic("Францiя", 67000000, "Еммануель Макрон")
+        };
+
+        Console.WriteLine("До сортування:");
+        foreach (var state in states)
+        {
+            state.Show();
+        }
+
+        // Сортування за населенням
+        states = states.OrderBy(s => s.Population).ToList();
+
+        Console.WriteLine("\nПiсля сортування за населенням:");
+        foreach (var state in states)
+        {
+            state.Show();
+        }
+    }
+}
